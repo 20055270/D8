@@ -1,0 +1,235 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+
+  .concentrata {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    text-align: center;  
+    text-decoration: none;  
+}
+
+.logocentrale{
+    color: #00FFFF;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25vw;
+    text-align: center;
+}
+
+.logocentralepic{
+    color: #00FFFF;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 100px;
+    text-align: center;
+}
+
+.sfondo {
+    background-color: #0D0D0D;
+}
+
+input {
+    font-family: 'Montserrat', sans-serif;
+}
+.contenitorigrossi{
+    border-radius: 15px;
+    background-color: #1a1a1a;
+    padding: 10px;
+    margin: 10px;
+}
+
+.contscrittaindex{
+    display: flex; /* Attiva Flexbox */
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100%; /* Assicurati che il div abbia un'altezza */
+    text-align: center; /* Centra il testo */
+}
+.bottone {
+    color: #00FFFF;
+    text-decoration: none;
+    margin-right: 10px;
+    border-color: #00FFFF;
+    font-family: 'Montserrat', sans-serif;
+    white-space: nowrap;
+}
+
+.bottonelog{
+    color: #0D0D0D;
+    border-color: #00FFFF;
+    background-color: #00FFFF;
+    text-decoration: none;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-family: 'Montserrat', sans-serif;
+    white-space: nowrap;
+}
+.bottone:hover {
+    color: #0D0D0D;
+    background-color: #00FFFF;
+    border-color: #00FFFF;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.bottonelog:hover {
+    color: #00FFFF;
+    border-color: #00FFFF;
+    background-color: #0d0d0d00;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.bottone:not(:last-child) {
+    margin-right: 5px; /* Aggiunge margine solo tra i bottoni */
+}
+.logo{
+    color: #00FFFF;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.logo:hover {
+    color: #00FFFF;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    transform: scale(1.2);
+    transition: transform 0.3s ease; 
+}
+
+.scritta{
+    color: #00FFFF;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.testo{
+    color: #E0E0E0;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+.testopic{
+    color: #E0E0E0;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.testoall{
+    color: #E0E0E0;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.testoallpic{
+    color: #E0E0E0;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    
+}
+
+
+.paragindex{
+    word-wrap: break-word;
+    overflow-wrap: break-word; 
+    white-space: normal; 
+    
+}
+
+@media (max-width: 768px) {
+  .tabellina {
+    font-size: 14px;
+    overflow-x: auto;
+    display: block;
+    width: 100%;
+  }
+
+  .tabellina th, .tabellina td {
+    padding: 6px;
+  }
+}
+
+.tabellina{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    align-items: center;
+    color: #E0E0E0;
+    background-color: #1a1a1a;
+    font-size: 18px;
+    margin: 20px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px #00FFFF;
+}
+.tabellina th, .tabellina td {
+    padding: 10px;
+}
+.tabellina tr:not(:last-child) td {
+    border-bottom: 1px solid #00FFFF; 
+}
+.tabellina th {
+    border-bottom: 1px solid #00FFFF;
+}
+
+.icona {
+    width: 30px; 
+    height: 30px; 
+    object-fit: cover; 
+}
+
+.iconanumero {
+    width: 20px; 
+    height: 20px; 
+    object-fit: cover; 
+}
+
+
+.canvas-grafico {
+  width: 100%;
+  max-width: 800px;  
+  height: auto;
+  margin: center;     
+  display: block;
+}
+
+.testo-grafico-sinistra p {
+  line-height: 1.6;
+  color: #E0E0E0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  margin: 0;
+}
+
+.testo-grafico-sinistra strong {
+  color: #00FFFF;
+}
+
+
+.badge {
+  background-color: #00FFFF;
+  color: #0D0D0D;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 12px;
+  margin-left: 10px;
+  font-family: 'Montserrat', sans-serif;
+  display: inline-block;
+}
+

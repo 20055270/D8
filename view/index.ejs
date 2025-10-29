@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <title>D8</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/stile.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/images/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    <meta name="theme-color" content="#ffffff">
+  </head>
+  <body class="sfondo">
+    <nav class="navbar navbar-expand-sm fixed-top" style="background-color: #1a1a1a;">
+      <div class="container-fluid">
+        <a class="logo navbar-brand fs-1 fw-bold" href="/">D8</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+          <span><img src="/images/navbartop.png" alt="Menu" style="height: 30px; width: auto;"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mynavbar">
+          <form class="d-flex ms-auto">
+            <% if (!user) { %>
+              <a class="bottone btn btn-outline-info me-2" href="/signup" type="button">Sign up</a>
+              <a class="bottonelog btn btn-outline-info" href="/login" type="button">Log in</a>
+            <% } else { %>
+              <a class="bottone btn btn-outline-info me-2" href="/classifiche" type="button">Classifiche</a>
+              <a class="bottone btn btn-outline-info me-2" href="/profile" type="button">Profilo</a>
+              <form action="/logout" method="post" style="display:inline">
+                <button type="submit" class="bottonelog btn btn-outline-info">Log out</button>
+              </form>
+            <% } %>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="concentrata pt-3 mt-5">
+      <a class="logocentrale fw-bold">D8</a>
+    </div>
+
+    <div class="container pt-3">
+      <div class="row contenitorigrossi pt-2 mt-2">
+        <div class="container pt-1 mt-1 col-sm-4" style="display:flex; justify-content:center; align-items:center; text-align:center;">
+          <p class="testoall paragindex"><b>cosa raccontano le tue giornate</b><br>
+            Dai passi che fai al tuo umore, passando per le ore di studio e le piccole vittorie quotidiane: ogni dato dice qualcosa di te.
+            Su D8 puoi confrontarti con il mondo, trovare ispirazione dagli altri e dare forma al tuo stile di vita.
+            Le statistiche non sono numeri… sono storie.
+          </p>
+        </div>
+
+        <div class="container pt-3 mt-1 col-sm-8" style="align-items:center;">
+          <table class="tabellina testo">
+            <thead>
+              <th><img src="/images/podio6.png" alt="Icona" class="icona"></th>
+              <th>Nickname</th>
+              <th><img src="/images/livello1.png" alt="Icona" class="icona"></th>
+            </thead>
+            <tbody>
+              <% /* Render top3 passato dal server (array di oggetti { username, level }) */ %>
+
+              <% if (top3 && top3.length) { %>
+                <% for (let i = 0; i < Math.max(3, top3.length); i++) { %>
+                  <% const u = top3[i]; %>
+                  <tr>
+                    <td>
+                      <% if (i === 0) { %>
+                        <img src="/images/primo.png" alt="Primo" class="iconanumero">
+                      <% } else if (i === 1) { %>
+                        <img src="/images/secondo.png" alt="Secondo" class="iconanumero">
+                      <% } else if (i === 2) { %>
+                        <img src="/images/terzo.png" alt="Terzo" class="iconanumero">
+                      <% } else { %>
+                        <%= i+1 %>
+                      <% } %>
+                    </td>
+
+                    <td>
+                      <% if (u) { %>
+                        <%= u.username %>
+                      <% } else { %>
+                        - 
+                      <% } %>
+                    </td>
+
+                    <td>
+                      <% if (u) { %>
+                        Livello <%= u.level %>
+                      <% } else { %>
+                        -
+                      <% } %>
+                    </td>
+                  </tr>
+                <% } %>
+              <% } else { %>
+                <!-- Zero utenti: mostra placeholder -->
+                <tr>
+                  <td><img src="/images/primo.png" alt="Primo" class="iconanumero"></td>
+                  <td>Nessun utente</td>
+                  <td>-</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- fine classifica -->
+      </div>
+    </div>
+
+    <div class="container pt-3">
+      <div class="row contenitorigrossi pt-2 mt-2">
+        <div class="container pt-3 mt-1 col-sm-8" style="align-items:center;">
+          <table class="tabellina testo">
+            <thead>
+              <tr><th>Statistiche personali</th></tr>
+            </thead>
+            <tbody>
+              <% /* Se vuoi mostrare alcuni dati dell'utente loggato li passi qui come "profile" */ %>
+              <% if (profile) { %>
+                <tr><td>Passi totali:&nbsp; <%= profile.totalSteps || '—' %></td></tr>
+                <tr><td>Cibo preferito:&nbsp; <%= profile.favoriteFood || '—' %></td></tr>
+                <tr><td>Umore medio:&nbsp; <%= profile.avgMood || '—' %></td></tr>
+              <% } else { %>
+                <tr><td>Passi totali:&nbsp; 150.000</td></tr>
+                <tr><td>Cibo preferito:&nbsp; Pizza</td></tr>
+                <tr><td>Umore medio:&nbsp; Felice</td></tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="container pt-1 mt-1 col-sm-4" style="display:flex; justify-content:center; align-items:center; text-align:center;">
+          <p class="testoall paragindex"><b>statistiche personali</b><br>
+            Le statistiche personali ti aiutano a capire i tuoi progressi. Ogni traguardo raggiunto racconta qualcosa di unico su di te e ti motiva a migliorarti ogni giorno.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-white mt-5" style="background-color: #1a1a1a; padding: 20px 0;">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <h5 class="testoall fw-bold">Informazioni</h5>
+            <ul class="list-unstyled">
+              <li><a href="/about" class="testoallpic">Chi siamo</a></li>
+              <li><a href="/privacy" class="testoallpic">Privacy Policy</a></li>
+              <li><a href="/terms" class="testoallpic">Termini e Condizioni</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4">
+            <h5 class="testoall fw-bold">Contatti</h5>
+            <ul class="list-unstyled">
+              <li>Email: <a href="mailto:info@d8.com" class="testoallpic">info@d8.com</a></li>
+              <li>Telefono: <a href="tel:+39-3495356100" class="testoallpic">+39 3495356100</a></li>
+              <li>Indirizzo: Corso Garibaldi 215, Gattinara</li>
+            </ul>
+          </div>
+          <div class="col-sm-4">
+            <h5 class="testoall fw-bold mb-4">Seguici</h5>
+            <a href="https://facebook.com" target="_blank" class="testo me-3">Facebook</a>
+            <a href="https://twitter.com" target="_blank" class="testo me-3">X</a>
+            <a href="https://instagram.com" target="_blank" class="testo">Instagram</a>
+          </div>
+        </div>
+        <hr class="bg-white">
+        <div class="text-center">
+          <p class="mb-0">&copy; 2025 D8. Tutti i diritti riservati.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+  </body>
+</html>

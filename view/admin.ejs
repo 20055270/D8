@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel - D8</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <h1 class="mb-4">Pannello Amministratore</h1>
+
+    <!-- Sezione utenti -->
+    <h3>Gestione Utenti</h3>
+    <table class="table table-striped" id="usersTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Ruolo</th>
+          <th>Punti</th>
+          <th>Livello</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Sezione leaderboard -->
+    <h3 class="mt-5">Top 3 Leaderboard</h3>
+    <ul id="leaderboard" class="list-group"></ul>
+  </div>
+
+  <script>
+    // Carica utenti
+    function loadUsers() {
+      fetch('/users')
+        .then(res => res.json())
+        .then(data => {
+          const tbody = document.querySelector('#usersTable tbody');
+          tbody.innerHTML = '';
+          data.users.forEach(user => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${user.id}</td>
+              <td>${user.username}</td>
+              <td>${user.email}</td>
+              <td>${user.role}
+                <select onchange="changeRole(${user.id}, this.value)">
+                  <option value="user" ${user.role === 'user' ? 'selected' : ''}>User</option>
+                  <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                </select>
+              </td>
+              <td>${user.points}</td>
+              <td>${user.level}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Elimina</button>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+        });
+    }
+
+    // Cambia ruolo
+    function changeRole(userId, newRole) {
+      fetch(`/users/${userId}/role`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role: newRole })
+      })
+      .then(res => res.json())
+      .then(data => alert(data.message));
+    }
+
+    // Elimina utente
+    function deleteUser(userId) {
+      if (confirm("Sei sicuro di voler eliminare questo utente?")) {
+        fetch(`/users/${userId}`, { method: 'DELETE' })
+          .then(res => res.json())
+          .then(data => {
+            alert(data.message);
+            loadUsers();
+          });
+      }
+    }
+
+    // Carica leaderboard
+    function loadLeaderboard() {
+      fetch('/leaderboard/top3')
+        .then(res => res.json())
+        .then(data => {
+          const ul = document.getElementById('leaderboard');
+          ul.innerHTML = '';
+          data.top3.forEach(u => {
+            const li = document.createElement('li');
+            li.className = 'list-group-item';
+            li.textContent = `${u.username} - Livello ${u.level}`;
+            ul.appendChild(li);
+          });
+        });
+    }
+
+    // Inizializza
+    loadUsers();
+    loadLeaderboard();
+  </script>
+</body>
+</html>
